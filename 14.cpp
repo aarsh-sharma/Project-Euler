@@ -16,22 +16,34 @@ typedef vector < ll > vll;
 
 int gcd(int x,int y){return y==0?x:gcd(y,x%y);}
 
+int collatz(int n) {
+    int num = 0;
+    while(n != 1) {
+        num++;
+        if(n % 2 == 0) {
+            n /= 2;
+        } else {
+            n = 3*n + 1;
+        }
+    }
+    return num;
+}
+
 int32_t main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
-    int n = 1000;
-    for(int a = 1; a < n; ++a) {
-        for(int b = 1; b < n; ++b) {
-            int c = n - a - b;
-            if(a*a + b*b == c*c) {
-                cout << a*b*c;
-                return 0;
-            }
+    int longest = 0, ans;
+    for(int i = 1; i <= 1000000; i++) {
+        int temp = collatz(i);
+        if(temp > longest) {
+            longest = temp;
+            ans = i;
         }
     }
+    cout << ans;
 
     return 0;
 }
